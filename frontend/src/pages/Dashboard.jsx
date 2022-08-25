@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../UserContext";
+import Post from "../components/Post";
 
 export default function Dashboard() {
   const { user } = useContext(UserContext);
@@ -21,7 +22,7 @@ export default function Dashboard() {
       .then((res) => {
         if (res.data) {
           console.log("resdata" + JSON.stringify(res.data));
-          setPosts(res.data.map((obj) => <h1>{obj.text}</h1>));
+          setPosts(res.data);
         }
       })
       .catch((err) => console.log(err));
@@ -30,7 +31,7 @@ export default function Dashboard() {
   return (
     <div>
       {user.token ? (
-        <div>{posts}</div>
+        posts.map((post) => <Post entry={post} />)
       ) : (
         <div className="mx-auto">
           <p className="p-4 mr-4">Register or login to see your posts!</p>

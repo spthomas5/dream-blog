@@ -11,13 +11,18 @@ const getPosts = asyncHandler(async (req, res) => {
 const addPost = asyncHandler(async (req, res) => {
     const message = req.body.text;
 
+    if (!req.body.title) {
+        throw new Error("Please enter a title!")
+    }
+
     if (!req.body.text) {
-        throw new Error("Please fill out text field")
+        throw new Error("Please type your dream!")
     }
 
     const dream = await Dream.create({
+        user: req.user._id,
+        title: req.body.title,
         text: req.body.text,
-        user: req.user.id,
     })
 
     res.status(200).json(dream)
