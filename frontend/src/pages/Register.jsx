@@ -22,6 +22,8 @@ export default function Register() {
 
     const {user, setUser} = useContext(UserContext);
 
+
+
     const navigate = useNavigate();
 
     const onSubmit = e => {
@@ -35,10 +37,10 @@ export default function Register() {
         axios.post('http://localhost:5000/api/users/', params)
         .then(res => {
             console.log(res.data)
-            if (res.data._id) {
+            if (res.data.token) {
                 setUser(prevUser => ({
                     ...prevUser,
-                    "id": res.data._id,
+                    "token": res.data.token,
                 }))
                 navigate('/');
             }})
