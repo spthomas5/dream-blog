@@ -14,21 +14,23 @@ export default function Header() {
   };
 
   return (
-    <nav className="flex flex-row w-full justify-between bg-slate-50 drop-shadow-xl">
-      <h1 className="p-4 mx-auto">
+    <nav className="flex flex-row w-full justify-between bg-slate-50 drop-shadow-xl h-26">
+      <h1 className="p-4 mx-auto text-4xl my-auto">
         <Link to="/">Dream Blog</Link>
       </h1>
       {!user.token ? (
-        <ul className="flex flex-row">
+        <ul className="flex flex-row my-auto">
           <li className="p-4">
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="">
+              Login
+            </Link>
           </li>
           <li className="p-4">
             <Link to="/register">Register</Link>
           </li>
         </ul>
       ) : (
-        <ul className="flex flex-row">
+        <ul className="flex flex-row my-auto">
           <li className="p-4" onClick={logout}>
             <Link to="/">Logout</Link>
           </li>

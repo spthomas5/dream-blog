@@ -47,13 +47,14 @@ export default function Login() {
   const navigate = useNavigate();
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="mt-10 mx-10">
       <input
         type="email"
         name="email"
         placeholder="Email"
         value={formData.email}
         onChange={handleChange}
+        className="mx-4 p-2"
       />
       <input
         type="text"
@@ -61,8 +62,9 @@ export default function Login() {
         placeholder="Password"
         value={formData.password}
         onChange={handleChange}
+        className="mx-4 p-2"
       />
-      <button className="bg-slate-400 rounded p-3">Submit</button>
+      <button className="bg-slate-400 rounded p-3 mx-4 px-5">Submit</button>
     </form>
   );
 }

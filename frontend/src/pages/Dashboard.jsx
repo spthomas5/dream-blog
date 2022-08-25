@@ -32,7 +32,9 @@ export default function Dashboard() {
       {user.token ? (
         <div>{posts}</div>
       ) : (
-        <h1>Register or login to see your posts!</h1>
+        <div className="mx-auto">
+          <p className="p-4 mr-4">Register or login to see your posts!</p>
+        </div>
       )}
     </div>
   );
