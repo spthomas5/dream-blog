@@ -9,7 +9,12 @@ import { UserContext } from '../UserContext'
 
 function App() {
 
-  const [user, setUser] = useState(343)
+  const [user, setUser] = useState({
+    id: null,
+    isError: false,
+    isSuccess: true,
+    message: ""
+  })
 
   return (
     <>

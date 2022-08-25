@@ -6,6 +6,15 @@ export default function Header() {
 
     const {user, setUser} = useContext(UserContext);
 
+    const logout = (e) => {
+        setUser(prevUser => ({
+            ...prevUser,
+            "id": null,
+        }))
+        console.log(user);
+    }
+        
+
     return (
         <nav className="flex flex-row w-full justify-between bg-slate-50 drop-shadow-xl">
             <h1 className="p-4 mx-auto">
@@ -13,7 +22,7 @@ export default function Header() {
                     Dream Blog
                 </Link>
             </h1>
-            <ul className="flex flex-row">
+            {!user.id ? <ul className="flex flex-row">
                 <li className="p-4">
                     <Link to='/login'> 
                         Login
@@ -24,7 +33,14 @@ export default function Header() {
                         Register
                     </Link>
                 </li>
-            </ul>
+            </ul> :
+            <ul className="flex flex-row">
+                <li className="p-4" onClick={logout}>
+                    <Link to='/'> 
+                        Logout
+                    </Link>
+                </li>
+            </ul>}
         </nav>
     )
  }
