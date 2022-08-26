@@ -14,7 +14,7 @@ export default function Header() {
   };
 
   return (
-    <nav className="flex flex-row w-full justify-between bg-slate-50 drop-shadow-xl h-26">
+    <nav className="flex flex-row w-full justify-between bg-slate-50 drop-shadow-xl h-28">
       <h1 className="p-4 mx-auto text-4xl my-auto">
         <Link to="/">Dream Blog</Link>
       </h1>
