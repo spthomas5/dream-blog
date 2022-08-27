@@ -30,33 +30,40 @@ export default function Dashboard() {
   let dreams = 4;
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:5000/api/posts/", config)
-      .then((res) => {
-        if (res.data) {
-          console.log("resdata" + JSON.stringify(res.data));
-          setPosts(res.data);
-        }
-      })
-      .catch((err) => console.log(err));
-  }, [posts]);
+  console.log("render");
+  axios
+    .get("http://localhost:5000/api/posts/", config)
+    .then((res) => {
+      console.log("useeffect");
+      if (JSON.stringify(res.data) !== JSON.stringify(posts)) {
+        console.log(res.data);
+        console.log("vs");
+        console.log(posts);
+        setPosts(res.data);
+      }
+    })
+    .catch((err) => console.log(err));
 
   const onSubmit = (e) => {
+    console.log("SUBMITTED");
     e.preventDefault();
     const params = new URLSearchParams();
     params.append("title", post.title);
     params.append("text", post.dream);
+    console.log("before" + JSON.stringify(posts));
     axios
       .post("http://localhost:5000/api/posts/", params, config)
       .then((res) => {
         console.log(res.data);
         if (res.data._id) {
+          setPosts((prevPosts) => {
+            return prevPosts.concat(res.data);
+          });
           navigate("/");
         }
       })
       .catch((e) => console.log(e));
+    console.log("after" + JSON.stringify(posts));
     setPost({
       title: "",
       dream: "",
@@ -90,7 +97,7 @@ export default function Dashboard() {
               placeholder="Title"
               value={post.title}
               onChange={handleChange}
-              className="mb-5 p-2"
+              className="mb-5 p-2 border border-black"
             />
           </div>
 
@@ -103,7 +110,7 @@ export default function Dashboard() {
               placeholder="Dream"
               value={post.dream}
               onChange={handleChange}
-              className="p-2"
+              className="p-2 border border-black mb-5"
             ></textarea>
             <button className="bg-slate-400 rounded p-3 mx-4 h-11 my-auto">
               Submit
