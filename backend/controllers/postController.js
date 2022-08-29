@@ -36,16 +36,16 @@ const updatePost = asyncHandler(async (req, res) => {
         res.status(400)
     }
 
-    const user = User.findById(req.user.id);
 
-    if (!user) {
+    if (!req.user) {
         throw new Error('Not logged in');
     } 
     
 
     
-    if (user.id !== dream.user.toString()) {
+    if (req.user.id !== dream.user.toString()) {
         res.status(401);
+        console.log(user.id, dream.user.toString())
         throw new Error('You are not allowed to edit this post!');
     }
 

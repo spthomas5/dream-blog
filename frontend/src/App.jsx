@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Header from "./components/Header";
+import Edit from "./pages/Edit";
 import { UserContext } from "../UserContext";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <Route path="/" element={<Dashboard />}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/login" element={<Login />}></Route>
+            <Route path="/edit" element={<Edit />}></Route>
           </Routes>
         </UserContext.Provider>
       </Router>

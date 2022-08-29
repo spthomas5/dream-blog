@@ -11,12 +11,7 @@ export default function Post(props) {
     text: props.entry.text,
   });
 
-  console.log("user" + JSON.stringify(user));
-
-  console.log(`Post user ID: ${JSON.stringify(props.entry._id)}. User id: `);
-
   const token = user.token;
-  console.log(token);
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
@@ -46,6 +41,11 @@ export default function Post(props) {
             </h1>
             <p onClick={deletePost}>
               <Link to="/">Delete</Link>
+            </p>
+            <p>
+              <Link to="/edit" state={props.entry}>
+                Edit
+              </Link>
             </p>
           </div>
 
