@@ -15,11 +15,9 @@ export default function Edit() {
 
   const title = location.state.title;
   const text = location.state.text;
-  console.log(title, text);
 
   const { user } = useContext(UserContext);
   const token = user.token;
-  console.log("TOTTOTKTOT" + token);
 
   const config = {
     headers: { Authorization: `Bearer ${token}` },
@@ -40,10 +38,6 @@ export default function Edit() {
         config
       )
       .then((res) => {
-        if (res) {
-          console.log("quiz");
-        }
-
         toast("Dream updated!", {
           hideProgressBar: true,
         });

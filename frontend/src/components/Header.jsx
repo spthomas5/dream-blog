@@ -10,12 +10,21 @@ export default function Header() {
       ...prevUser,
       token: null,
     }));
-    console.log(user);
   };
 
   return (
     <nav className="flex flex-row w-full justify-between bg-slate-50 drop-shadow-xl h-28">
-      <h1 className="p-4 mx-auto text-4xl my-auto">
+      {!user.token ? (
+        <ul className="flex flex-row my-auto">
+          <li className="p-4 invisible">Login</li>
+          <li className="p-4 invisible">Register</li>
+        </ul>
+      ) : (
+        <ul className="flex flex-row my-auto">
+          <li className="p-4 invisible">Logout</li>
+        </ul>
+      )}
+      <h1 className="p-4 mx-auto text-4xl my-auto ">
         <Link to="/">Dream Log</Link>
       </h1>
       {!user.token ? (

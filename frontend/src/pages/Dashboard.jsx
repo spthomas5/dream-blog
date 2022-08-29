@@ -3,6 +3,8 @@ import { useContext, useState, useEffect } from "react";
 import { UserContext } from "../../UserContext";
 import Post from "../components/Post";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Dashboard() {
   const { user } = useContext(UserContext);
@@ -51,7 +53,13 @@ export default function Dashboard() {
           setPosts((prevPosts) => {
             return prevPosts.concat(res.data);
           });
-          navigate("/");
+          toast("Dream created!", {
+            hideProgressBar: true,
+            position: "bottom-center",
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
         }
       })
       .catch((e) => console.log(e));
@@ -63,64 +71,67 @@ export default function Dashboard() {
   };
 
   return (
-    <div>
-      {user.token ? (
-        posts.map((post) => <Post entry={post} />)
-      ) : (
-        <div className="mx-auto">
-          <p className="p-4 mr-4">Register or login to see your posts!</p>
-        </div>
-      )}
-      {user.token && (
-        <form onSubmit={onSubmit} className="mt-10 mx-10">
-          {user.isError == true && (
-            <div
-              className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-              role="alert"
-            >
-              <span className="font-medium">Danger alert!</span> Change a few
-              things up and try submitting again.
+    <>
+      <div>
+        {user.token ? (
+          posts.map((post) => <Post entry={post} />)
+        ) : (
+          <div className="mx-auto">
+            <p className="p-4 mr-4">Register or login to see your posts!</p>
+          </div>
+        )}
+        {user.token && (
+          <form onSubmit={onSubmit} className="mt-10 mx-10">
+            {user.isError == true && (
+              <div
+                className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                role="alert"
+              >
+                <span className="font-medium">Danger alert!</span> Change a few
+                things up and try submitting again.
+              </div>
+            )}
+            <div>
+              <input
+                id="title"
+                type="text"
+                placeholder="Title"
+                value={post.title}
+                onChange={handleChange}
+                className="mb-5 p-2 border border-black"
+              />
             </div>
-          )}
-          <div>
-            <input
-              id="title"
-              type="text"
-              placeholder="Title"
-              value={post.title}
-              onChange={handleChange}
-              className="mb-5 p-2 border border-black"
-            />
-          </div>
 
-          <div className="flex flex-row">
-            <textarea
-              name=""
-              id="dream"
-              cols="100"
-              rows="10"
-              placeholder="Dream"
-              value={post.dream}
-              onChange={handleChange}
-              className="p-2 border border-black mb-5"
-            ></textarea>
-            <button className="bg-slate-400 rounded p-3 mx-4 h-11 my-auto">
-              Submit
-            </button>
-          </div>
+            <div className="flex flex-row">
+              <textarea
+                name=""
+                id="dream"
+                cols="100"
+                rows="10"
+                placeholder="Dream"
+                value={post.dream}
+                onChange={handleChange}
+                className="p-2 border border-black mb-5"
+              ></textarea>
+              <button className="bg-slate-400 rounded p-3 mx-4 h-11 my-auto">
+                Submit
+              </button>
+            </div>
 
-          <div>{user.id}</div>
-        </form>
-      )}
-      {user.isError && (
-        <div
-          class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
-          role="alert"
-        >
-          <span class="font-medium">Done!</span> You have successfully edited
-          your dream
-        </div>
-      )}
-    </div>
+            <div>{user.id}</div>
+          </form>
+        )}
+        {user.isError && (
+          <div
+            class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+            role="alert"
+          >
+            <span class="font-medium">Done!</span> You have successfully edited
+            your dream
+          </div>
+        )}
+      </div>
+      <ToastContainer />
+    </>
   );
 }

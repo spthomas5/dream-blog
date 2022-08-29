@@ -63,8 +63,6 @@ export default function Register() {
           position: "bottom-center",
         })
       );
-
-    console.log("SUBMITTED");
   };
 
   return (

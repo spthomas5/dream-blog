@@ -25,6 +25,7 @@ export default function Post(props) {
         if (res.data.id) {
           toast("Dream deleted", {
             hideProgressBar: true,
+            position: "bottom-center",
           });
           setPost({
             title: "",
@@ -38,7 +39,7 @@ export default function Post(props) {
   return (
     <>
       {post.title && (
-        <div className="text-center p-10 border-b-2 my-12">
+        <div className="text-center p-10 border-b-2 my-12 w-11/12 content-center mx-auto">
           <div>
             <h1 className="text-cyan-900 mb-5 text-xl underline">
               {post.title}
