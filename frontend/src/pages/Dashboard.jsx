@@ -30,31 +30,23 @@ export default function Dashboard() {
   let dreams = 4;
 
   const navigate = useNavigate();
-  console.log("render");
   axios
     .get("http://localhost:5000/api/posts/", config)
     .then((res) => {
-      console.log("useeffect");
       if (JSON.stringify(res.data) !== JSON.stringify(posts)) {
-        console.log(res.data);
-        console.log("vs");
-        console.log(posts);
         setPosts(res.data);
       }
     })
     .catch((err) => console.log(err));
 
   const onSubmit = (e) => {
-    console.log("SUBMITTED");
     e.preventDefault();
     const params = new URLSearchParams();
     params.append("title", post.title);
     params.append("text", post.dream);
-    console.log("before" + JSON.stringify(posts));
     axios
       .post("http://localhost:5000/api/posts/", params, config)
       .then((res) => {
-        console.log(res.data);
         if (res.data._id) {
           setPosts((prevPosts) => {
             return prevPosts.concat(res.data);
@@ -63,7 +55,7 @@ export default function Dashboard() {
         }
       })
       .catch((e) => console.log(e));
-    console.log("after" + JSON.stringify(posts));
+
     setPost({
       title: "",
       dream: "",
@@ -119,6 +111,15 @@ export default function Dashboard() {
 
           <div>{user.id}</div>
         </form>
+      )}
+      {user.isError && (
+        <div
+          class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
+          role="alert"
+        >
+          <span class="font-medium">Done!</span> You have successfully edited
+          your dream
+        </div>
       )}
     </div>
   );

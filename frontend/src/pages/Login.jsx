@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { UserContext } from "../../UserContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
   const [formData, setFormData] = useState({
@@ -28,18 +30,32 @@ export default function Login() {
     axios
       .post("http://localhost:5000/api/users/login", params)
       .then((res) => {
-        console.log(res.data);
+        if (res.data.message) {
+          toast(res.data.message, {
+            hideProgressBar: true,
+            position: "bottom-center",
+          });
+        }
         if (res.data.token) {
           setUser((prevUser) => ({
             ...prevUser,
             token: res.data.token,
           }));
-          navigate("/");
+          toast("Welcome back!", {
+            hideProgressBar: true,
+            position: "bottom-center",
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
         }
       })
-      .catch((e) => console.log(e));
-
-    console.log("SUBMITTED");
+      .catch((e) =>
+        toast(e.response.data.message, {
+          hideProgressBar: true,
+          position: "bottom-center",
+        })
+      );
   };
 
   const { user, setUser } = useContext(UserContext);
@@ -65,6 +81,7 @@ export default function Login() {
         className="mx-4 p-2"
       />
       <button className="bg-slate-400 rounded p-3 mx-4 px-5">Submit</button>
+      <ToastContainer />
     </form>
   );
 }

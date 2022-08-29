@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState, useContext } from "react";
 import { UserContext } from "../../UserContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -34,16 +36,33 @@ export default function Register() {
     axios
       .post("http://localhost:5000/api/users/", params)
       .then((res) => {
-        console.log(res.data);
+        if (res.data.message) {
+          toast(res.data.message, {
+            hideProgressBar: true,
+            position: "bottom-center",
+          });
+        }
+
         if (res.data.token) {
           setUser((prevUser) => ({
             ...prevUser,
             token: res.data.token,
           }));
-          navigate("/");
+          toast("Your account has been created!", {
+            hideProgressBar: true,
+            position: "bottom-center",
+          });
+          setTimeout(() => {
+            navigate("/");
+          }, 3000);
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) =>
+        toast(e.response.data.message, {
+          hideProgressBar: true,
+          position: "bottom-center",
+        })
+      );
 
     console.log("SUBMITTED");
   };
@@ -85,6 +104,7 @@ export default function Register() {
       />
       <button className="bg-slate-400 rounded p-3 mx-4">Submit</button>
       <div>{user.id}</div>
+      <ToastContainer />
     </form>
   );
 }

@@ -45,7 +45,6 @@ const updatePost = asyncHandler(async (req, res) => {
     
     if (req.user.id !== dream.user.toString()) {
         res.status(401);
-        console.log(user.id, dream.user.toString())
         throw new Error('You are not allowed to edit this post!');
     }
 

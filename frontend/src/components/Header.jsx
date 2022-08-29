@@ -16,7 +16,7 @@ export default function Header() {
   return (
     <nav className="flex flex-row w-full justify-between bg-slate-50 drop-shadow-xl h-28">
       <h1 className="p-4 mx-auto text-4xl my-auto">
-        <Link to="/">Dream Blog</Link>
+        <Link to="/">Dream Log</Link>
       </h1>
       {!user.token ? (
         <ul className="flex flex-row my-auto">

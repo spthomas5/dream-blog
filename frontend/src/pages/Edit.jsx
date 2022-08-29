@@ -3,6 +3,8 @@ import { useState, useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { UserContext } from "../../UserContext";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Edit() {
   const location = useLocation();
@@ -38,7 +40,16 @@ export default function Edit() {
         config
       )
       .then((res) => {
-        navigate("/");
+        if (res) {
+          console.log("quiz");
+        }
+
+        toast("Dream updated!", {
+          hideProgressBar: true,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
       })
       .catch((err) => console.log(err));
   };
@@ -85,6 +96,7 @@ export default function Edit() {
           <p className="p-4 mr-4">Register or login to see your posts!</p>
         </div>
       )}
+      <ToastContainer />
     </>
   );
 }
